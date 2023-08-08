@@ -1,0 +1,17 @@
+.chart-section
+{
+  padding: 20px;
+  background-color: var(--deep-red);
+  .chart{
+    background-color: var(--pure-white);
+  width: 100%;
+  border: 1px solid var(--pure-white);
+  border-radius: 10px;
+  padding: 10rem;
+  min-height: 792px;
+  text-align: center;
+  }
+}
+.back-wrapper{
+  text-align: end;
+}

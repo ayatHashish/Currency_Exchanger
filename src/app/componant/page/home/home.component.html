@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+<div class="home-page">
+  <div class="wrapper">
+    <div class="blue-bg"></div>
+    <div class="white-bg"></div>
+    <div class="converter-wrapper">
+      <h2>Currency Exchanger!</h2>
+      <app-changer></app-changer>
+      <div class="back-wrapper">
+        <a routerLink="/details">More Details &#8702;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- <p> The 9 Most Popular Currencie</p> -->
+  <div class="bottom-section">
+
+    <div *ngFor="let item of popularCurrenciesConverted">
+      <h2> {{item.base_code}} - {{item.target_code}} </h2>
+      <span>conversion result:<p> {{item.conversion_result}}</p></span>
+      <span>conversion rate:<p> {{item.conversion_rate}}</p></span>
+    </div>
+  </div>
+</div>

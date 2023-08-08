@@ -1,0 +1,25 @@
+#convert-btn {
+  background-color: var(--deep-red);;
+  border: none;
+  color: var(--pure-white);
+  text-transform: uppercase;
+  font-family: inherit;
+  font-size: 1.2rem;
+  padding: 0.8rem 1.4rem;
+  margin-top: 1.6rem;
+  cursor: pointer;
+  display: block;
+}
+
+@media screen and (max-width: 1000px) {
+  #convert-btn {
+    width: 100%;
+    margin: 20px 0;
+    padding: 0.5rem 1rem;
+  }
+}
+@media screen and (max-width: 768px) {
+
+}
+@media screen and (max-width: 500px) {
+}
