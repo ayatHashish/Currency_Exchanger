@@ -80,14 +80,12 @@
 }
 
 @media screen and (max-width: 678px) {
-  .converter-inputs {
-   .midd-sec{
-    margin: auto;
-   }
-    .top-sec ,.buttom-sec{
-      flex-direction: column;
-  }
-  }
+.converter-inputs {
+        .midd-sec{
+         margin: auto;
+        }
+         .top-sec ,.buttom-sec{
+           flex-direction: column;
+       }
+       }
 }
-
-

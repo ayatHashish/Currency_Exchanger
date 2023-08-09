@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 export class ChartsService {
   apiUrl = environment?.apiUrl;
   apiKey = environment?.apiKey;
-
+  apiChartUrl = environment?.apiChartUrl;
   constructor(private http:HttpClient) { }
   Getchartinfo(){
     return this.http.get("http://localhost:3000/sales");
   }
-  getCurrency(): Observable<any> {
+  getlatest(): Observable<any> {
     const url = `${this.apiUrl + roots?.endpoint?.latest}?access_key=${this.apiKey}`;
     return this.http.get(url);
   }

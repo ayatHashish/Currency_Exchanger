@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CurrencyService } from '../../service/currency.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HomeComponent } from '../home/home.component';
@@ -6,9 +6,11 @@ import { HomeComponent } from '../home/home.component';
 @Component({
   selector: 'app-changer',
   templateUrl: './changer.component.html',
-  styleUrls: ['./changer.component.scss']
+  styleUrls: ['./changer.component.scss','./../home/home.component.scss']
 })
 export class ChangerComponent {
+
+
   exchangeData: any;
   calculatedConversion: any;
   amount: any = 1;
@@ -22,7 +24,7 @@ export class ChangerComponent {
   symbols: any;
   fromSelectedCurrency: string = 'EUR';
   toSelectedCurrency: string = 'USD';
-  constructor(private formBuilder: FormBuilder, private currencyService: CurrencyService, private Home: HomeComponent) {
+  constructor(private formBuilder: FormBuilder, private currencyService: CurrencyService) {
     this.getSympol()
   }
   conversionForm = new FormGroup({
@@ -31,22 +33,17 @@ export class ChangerComponent {
     toCurrency: new FormControl('', [Validators.required,
     ]),
   });
-
   //sympols
   getSympol() {
     this.currencyService.getSymbols().subscribe(
       (res) => {
         const symbolsJson = Object.keys(res.symbols);
-        this.symbols = symbolsJson;
-        console.log(this.symbols)
-      },
+        this.symbols = symbolsJson; },
       (e) => { },
-      () => console.error('Error fetching exchange rates:')
     );
   }
   convertCurrency() {
     if (this.conversionForm.valid) {
-      console.log(this.conversionForm.value)
       let storeAmount = this.conversionForm.get('amount')?.value;
       let fromCurrency = this.conversionForm.get('fromCurrency')?.value;
       let toCurrency = this.conversionForm.get('toCurrency')?.value;
@@ -57,11 +54,11 @@ export class ChangerComponent {
           this.conversion_rate = res.conversion_rate
           this.base_code = res.base_code
           this.target_code = res.target_code
-          // console.log(this.exchangeRates)
         },
         (e) => { },
-        () => this.Home.mostPopularConverter(fromCurrency, storeAmount)
+        () => this.currencyService.mostPopularConverter(fromCurrency, storeAmount)
       );
     }
   }
+
 }

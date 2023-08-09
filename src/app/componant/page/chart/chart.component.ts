@@ -8,74 +8,53 @@ Chart.register(...registerables);
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent {
-  constructor(private _charts: ChartsService) { }
+
+  public chart: any;
   chartdata: any;
   labeldata: any[] = [];
   realdata: any[] = [];
   colordata: any[] = [];
-  ngOnInit(): void {
-    this._charts.Getchartinfo().subscribe(result => {
-      this.chartdata = result;
-      if (this.chartdata != null) {
-        for (let i = 0; i < this.chartdata.length; i++) {
-          //console.log(this.chartdata[i]);
-          this.labeldata.push(this.chartdata[i].year);
-          this.realdata.push(this.chartdata[i].amount);
-          this.colordata.push(this.chartdata[i].colorcode);
-        }
-        this.RenderChart(this.labeldata, this.realdata, this.colordata, 'bar', 'barchart');
-      }
-    });
-
-    this.RenderbarChart();
-
+  data: any
+  chartValues: any[] = [];
+  constructor(private _charts: ChartsService) {
+    this.getRateChart()
   }
-  RenderChart(labeldata: any, maindata: any, colordata: any, type: any, id: any) {
-    const myChart = new Chart(id, {
-      type: type,
-      data: {
-        labels: labeldata,
-        datasets: [{
-          label: '# of Votes',
-          data: maindata,
-          backgroundColor: colordata,
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(255, 22, 132, 2)',
-            'rgba(255, 99, 132, 1)'
-          ],
-          borderWidth: 1
-        }]
+  getRateChart() {
+    this._charts.getlatest().subscribe(
+      (res) => {
+        this.data = res.data
+        this.chartdata = Object.keys(res.rates);
+        this.chartValues = this.extractValues(res.rates);
+        console.log(this.chartValues)
+        this.RenderbarChart();
+        // if (this.chartdata != null) {
+        //   for (let i = 0; i < this.chartdata.length; i++) {
+        //     this.labeldata.push(this.chartdata[i].month);
+        //     this.realdata.push(this.chartdata[i].amount);
+        //     this.colordata.push(this.chartdata[i].colorcode);
+        //   }
+
+        // }
       },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+      (e) => { },
+    );
   }
+  extractValues(rates: { [code: string]: number }): number[] {
+    return this.chartdata.map((code: string) => rates[code]);
+  }
+
+
+
+
   RenderbarChart() {
     const myChart = new Chart("barchart", {
-      type: 'bar',
+      type: 'line',
       data: {
-        // labels: ['January', 'February', 'March', 'April', 'May', 'June'],
         datasets: [{
           label: 'Mounthly currancy',
-          data: [65, 59, 80, 81, 56, 55, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-          ],
+          data: ['1400.2', '144.68', '103.379112', '424.780436', '92',
+          '424.780436', '120.7', '424.780436', '1200.2', '101.48', '424.78', '424.780'],
+
           borderColor: [
             'rgb(255, 99, 132)',
             'rgb(255, 159, 64)',
@@ -89,16 +68,35 @@ export class ChartComponent {
         }]
       },
       options: {
-
+        responsive: true,
         scales: {
           x: {
             type: 'category',
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-            'August','September','October', 'November', 'December',]
+              'August', 'September', 'October', 'November', 'December',],
+            title: {
+              display: true,
+              text: 'Month',
+            },
+          },
+          y: {
+            labels: this.chartValues,
+            title: {
+              display: true,
+              text: 'Rates',
+            },
+            ticks: {
+              stepSize:10,
+              maxTicksLimit: 200,
+            },
           }
+
+
         }
       }
     }
     );
   }
+
+
 }

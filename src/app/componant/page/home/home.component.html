@@ -11,14 +11,12 @@
       </div>
     </div>
   </div>
-
   <!-- <p> The 9 Most Popular Currencie</p> -->
   <div class="bottom-section">
-
     <div *ngFor="let item of popularCurrenciesConverted">
       <h2> {{item.base_code}} - {{item.target_code}} </h2>
       <span>conversion result:<p> {{item.conversion_result}}</p></span>
-      <span>conversion rate:<p> {{item.conversion_rate}}</p></span>
+     
     </div>
   </div>
 </div>
