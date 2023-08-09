@@ -8,7 +8,6 @@ Chart.register(...registerables);
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent {
-
   public chart: any;
   chartdata: any;
   labeldata: any[] = [];
@@ -42,10 +41,6 @@ export class ChartComponent {
   extractValues(rates: { [code: string]: number }): number[] {
     return this.chartdata.map((code: string) => rates[code]);
   }
-
-
-
-
   RenderbarChart() {
     const myChart = new Chart("barchart", {
       type: 'line',
@@ -53,7 +48,7 @@ export class ChartComponent {
         datasets: [{
           label: 'Mounthly currancy',
           data: ['1400.2', '144.68', '103.379112', '424.780436', '92',
-          '424.780436', '120.7', '424.780436', '1200.2', '101.48', '424.78', '424.780'],
+            '424.780436', '120.7', '424.780436', '1200.2', '101.48', '424.78', '424.780'],
 
           borderColor: [
             'rgb(255, 99, 132)',
@@ -86,7 +81,7 @@ export class ChartComponent {
               text: 'Rates',
             },
             ticks: {
-              stepSize:10,
+              stepSize: 10,
               maxTicksLimit: 200,
             },
           }
@@ -97,6 +92,4 @@ export class ChartComponent {
     }
     );
   }
-
-
 }

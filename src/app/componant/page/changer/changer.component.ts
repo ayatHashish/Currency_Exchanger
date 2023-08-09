@@ -9,8 +9,6 @@ import { HomeComponent } from '../home/home.component';
   styleUrls: ['./changer.component.scss','./../home/home.component.scss']
 })
 export class ChangerComponent {
-
-
   exchangeData: any;
   calculatedConversion: any;
   amount: any = 1;
@@ -60,5 +58,4 @@ export class ChangerComponent {
       );
     }
   }
-
 }
